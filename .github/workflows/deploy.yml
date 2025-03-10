@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Change to your branch name if needed
+      - main  # Adjust if using another branch
 
 permissions:
   contents: write
@@ -19,16 +19,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Adjust if necessary
+          node-version: '18'  # Adjust if needed
 
       - name: Clean Install Dependencies
         run: |
-          rm -rf node_modules package-lock.json  # Remove existing modules and lock file
-          npm cache clean --force  # Clear cache
-          npm install --force  # Force fresh install of all dependencies
+          rm -rf node_modules package-lock.json  # Delete any broken installs
+          npm cache clean --force  # Ensure no corrupted packages
+          npm install --legacy-peer-deps  # Install dependencies safely
+          npm install eslint-config-react-app --save-dev  # Ensure ESLint works
 
       - name: Build Project
-        run: CI=false npm run build  # Disable ESLint errors from stopping the build
+        run: CI=false npm run build  # Disable ESLint from blocking build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
