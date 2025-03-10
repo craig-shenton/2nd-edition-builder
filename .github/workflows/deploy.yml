@@ -23,10 +23,14 @@ jobs:
 
       - name: Clean Install Dependencies
         run: |
-          rm -rf node_modules package-lock.json  # Delete any broken installs
+          rm -rf node_modules package-lock.json  # Remove old dependencies
           npm cache clean --force  # Ensure no corrupted packages
           npm install --legacy-peer-deps  # Install dependencies safely
-          npm install eslint-config-react-app --save-dev  # Ensure ESLint works
+
+      - name: Fix ESLint Dependency Conflict
+        run: |
+          npm install eslint@8 --save-dev  # Upgrade ESLint
+          npm install eslint-config-react-app@latest --save-dev  # Ensure matching version
 
       - name: Build Project
         run: CI=false npm run build  # Disable ESLint from blocking build
