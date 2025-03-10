@@ -1,8 +1,8 @@
 {
-  "name": "old-world-builder",
-  "version": "1.11.4",
-  "author": "Nico Thiebes",
-  "homepage": "https://old-world-builder.com",
+  "name": "2nd-edition-builder",
+  "version": "0.0.1",
+  "author": "Craig Shenton",
+  "homepage": "https://craig-shenton.github.io/2nd-edition-builder/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.7.2",
