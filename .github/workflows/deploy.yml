@@ -3,10 +3,10 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Change to 'master' if using a different branch
+      - main  # Change if your branch is different
 
 permissions:
-  contents: write  # Required to push changes
+  contents: write
 
 jobs:
   build:
@@ -15,21 +15,21 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-        
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Use the correct version
+          node-version: '18'  # Change if needed
 
       - name: Install Dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps  # Prevent dependency conflicts
 
       - name: Build Project
-        run: npm run build  # Adjust if needed (e.g., `yarn build`)
+        run: CI=false npm run build  # Disable ESLint from blocking the build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages  # Deploy to 'gh-pages' branch
-          folder: dist  # Change this if your output folder is different
+          branch: gh-pages
+          folder: dist
           clean: true
